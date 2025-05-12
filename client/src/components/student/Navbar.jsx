@@ -44,14 +44,14 @@ const Navbar = () => {
 				isCourseListPage ? "bg-white" : "bg-cyan-100/70"
 			} `}
 		>
-			<img onClick={()=>navigate('/')}
-				src={assets.logo}
-				alt="Logo"
-				className="w-28 lg:w-32  cursor-pointer"
-			/>
+			 <Link to="/" className="flex items-center justify-center">
+        <img src={assets.Edu} alt=" logo" className="w-10 lg:w-14 rounded-full" />
+        <h1 className="font-semibold text-[rgb(67,125,194)]
+">Edu-Saathi</h1>
+      </Link>
 			<div className="hidden md:flex items-center gap-5 text-gray-500">
 				<div className="flex items-center gap-5">
-					<Logger/>
+					{/* <Logger/> */}
 				</div>
 				<div className="flex items-center gap-5">
 					{user && (
