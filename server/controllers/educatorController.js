@@ -6,23 +6,30 @@ import User from '../models/User.js'
 
 
 // Update role to educator
-export const updateRoleToEducator = async (req,res)=>{
+
+
+export const updateRoleToEducator = async (req, res) => {
     try {
-        const userId = req.auth.userId
+        const userId = req.auth.userId;
+
+        if (!userId) {
+            return res.status(401).json({ success: false, message: "Unauthorized: userId missing." });
+        }
 
         await clerkClient.users.updateUserMetadata(userId, {
-            publicMetadata:{
-                role: 'educator',
-            }
-        })
+            publicMetadata: {
+                role: "educator",
+            },
+        });
 
-        res.json({success: true, message: 'You can publish a course now'})
-
+        res.json({ success: true, message: "You can publish a course now" });
 
     } catch (error) {
-        res.json({success: false, message:error.message})
+        console.error("Error updating role:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
 
 //  Add new course 
 // export const addCourse = async(req,res) =>{

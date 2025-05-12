@@ -9,6 +9,7 @@ import connectCloudinay from './configs/cloudinary.js';
 import courseRouter from './routes/courseRoute.js';
 import userRouter from './routes/userRoutes.js';
 
+
 // initialize express 
 const app = express();
 
@@ -19,7 +20,23 @@ await connectCloudinay();
 
 
 // middleware
-app.use(cors());
+// --- ✅ CORS FIX START ---
+const allowedOrigins = [
+  'http://localhost:5173',  // Vite frontend (adjust if needed)
+  'http://localhost:5174',  // your origin from the error
+  'https://your-frontend.vercel.app' // add Vercel frontend here
+]
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}))
+
+// Optional: ensure OPTIONS requests are always handled
+app.options('*', cors())
+// --- ✅ CORS FIX END ---
 app.use(clerkMiddleware())
 
 
